@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
 
     public void Tick()
     {
-        onTickCallback();
+        if (onTickCallback != null)
+            onTickCallback();
     }
 }

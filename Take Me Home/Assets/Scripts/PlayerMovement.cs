@@ -7,15 +7,18 @@ public class PlayerMovement : MonoBehaviour
 {
     public Follower follower;
     private Collider2D coll;
+    private Vector3 desiredPos;
 
     void Start()
     {
         coll = GetComponent<Collider2D>();
+        desiredPos = transform.position;
     }
     // Update is called once per frame
     void Update()
     {
         MovePlayer();
+        transform.position = Vector3.Lerp(transform.position, desiredPos, 10f * Time.deltaTime);
     }
 
 
@@ -41,8 +44,8 @@ public class PlayerMovement : MonoBehaviour
         }
         if (SpaceIsClear(desiredDirection))
         {
-            follower.MoveTo(transform.position);
-            transform.Translate(desiredDirection);
+            follower.SetPosition(desiredPos);
+            desiredPos +=  (Vector3)desiredDirection;
             GameManager.instance.Tick();
         } 
             
